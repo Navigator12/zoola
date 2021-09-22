@@ -1,6 +1,6 @@
 const { ObjectId } = require('mongoose').Types
 
-const { paginate, delay, doubleEncode } = require('../utils/utils')
+const { paginate, delay, doubleEncode } = require('../utils')
 
 const Meeting = require('../models/Meeting')
 const Participant = require('../models/Participant')

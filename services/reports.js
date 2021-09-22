@@ -9,7 +9,7 @@ const {
   xlsxTimeFormat,
   xlsxLeaveReasonFormat,
   reportPath,
-} = require('../utils/utils')
+} = require('../utils')
 
 const { PASSWORD } = process.env
 

@@ -1,6 +1,6 @@
 const ReportsService = require('../services/reports')
 
-const { getDateFromQuery, getFormatDate } = require('../utils/utils')
+const { getDateFromQuery, getFormatDate } = require('../utils')
 
 class ReportsController {
   static async PerMemberReport(req, res) {

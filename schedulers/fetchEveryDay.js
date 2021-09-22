@@ -2,7 +2,7 @@ const Job = require('../models/Job')
 
 const MetricsService = require('../services/metrics')
 
-const { DAY, getFormatDate, todayDate } = require('../utils/utils')
+const { DAY, getFormatDate, todayDate } = require('../utils')
 
 const createTodayJob = async () => {
   const yesterdayDate = new Date(todayDate().getTime() - DAY)
