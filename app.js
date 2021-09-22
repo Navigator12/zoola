@@ -24,6 +24,8 @@ app.use(express.urlencoded({
   extended: true,
 }))
 
+app.use('/reports', express.static(`${__dirname}/reports`))
+
 app.use('/api/reports', require('./routes/reports'))
 
 startDB().then()

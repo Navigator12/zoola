@@ -1,6 +1,6 @@
 const axios = require('axios')
 
-const { ZOOM_API_TOKEN } = process.env
+const { ZOOM_API_TOKEN, DOMAIN } = process.env
 
 const paginate = async (baseUrl, key, time) => {
   const { data } = await axios.get(baseUrl, {
@@ -40,15 +40,47 @@ const doubleEncode = (str) => encodeURIComponent(encodeURIComponent(str))
 
 const DAY = 86400000
 
-const getFormatDate = (date) => `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+];
+
+const fill = (num) => (num < 10 ? `0${num}` : `${num}`)
+const xlsxDateFormat = (date) => `${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
+const xlsxTimeFormat = (date) => `${fill(date.getHours())}:${fill(date.getMinutes())}`
+
+const xlsxLeaveReasonFormat = (str) => {
+  str = str.substr(str.indexOf('Reason: ') + 8)
+  str = str[0].toUpperCase() + str.substr(1)
+
+  return str
+}
 
 const todayDate = () => {
   const date = new Date()
 
-  date.setHours(date.getHours() - date.getUTCHours(), 0, 0, 0)
+  date.setHours(-date.getTimezoneOffset() / 60, 0, 0, 0)
 
   return date
 }
+
+const getFormatDate = (date) => `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+
+const getDateFromQuery = (date, defaultDateType) => {
+  if (!date) {
+    const newDate = new Date()
+
+    if (defaultDateType === 'min') newDate.setTime(0)
+    else newDate.setTime(todayDate().getTime())
+
+    return newDate
+  }
+
+  const [year, month, day] = date.split('-')
+
+  return new Date(Date.UTC(year, month - 1, day))
+}
+
+const reportPath = (filename) => `${DOMAIN}/reports/${filename}.xlsx`
 
 module.exports = {
   paginate,
@@ -57,4 +89,9 @@ module.exports = {
   DAY,
   todayDate,
   getFormatDate,
+  getDateFromQuery,
+  xlsxDateFormat,
+  xlsxTimeFormat,
+  xlsxLeaveReasonFormat,
+  reportPath,
 }

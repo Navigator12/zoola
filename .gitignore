@@ -1,4 +1,7 @@
 /.idea
 /node_modules
 
+/reports/*
+
 .env
+package-lock.json
