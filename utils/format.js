@@ -31,6 +31,20 @@ const getDateFromQuery = (date, defaultDateType) => {
 
 const reportPath = (filename) => `${DOMAIN}/reports/${filename}.xlsx`
 
+const xlsxBorder = (sheet, top, bottom, left, right) => {
+  sheet.range(`${left}${top}:${right}${top}`)
+    .style('topBorder', true)
+
+  sheet.range(`${left}${bottom}:${right}${bottom}`)
+    .style('bottomBorder', true)
+
+  sheet.range(`${left}${top}:${left}${bottom}`)
+    .style('leftBorder', true)
+
+  sheet.range(`${right}${top}:${right}${bottom}`)
+    .style('rightBorder', true)
+}
+
 module.exports = {
   xlsxDateFormat,
   xlsxTimeFormat,
@@ -38,4 +52,5 @@ module.exports = {
   getFormatDate,
   getDateFromQuery,
   reportPath,
+  xlsxBorder,
 }

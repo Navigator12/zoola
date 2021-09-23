@@ -22,11 +22,16 @@ class ReportsController {
 
   static async PerMeetingReport(req, res) {
     try {
-      const { uuid } = req.params
+      const { id } = req.params
 
-      const data = await ReportsService.PerMeetingReport(uuid)
+      const from = getDateFromQuery(req.query.from, 'min')
+      const to = getDateFromQuery(req.query.to, 'max')
 
-      return res.status(200).json({ data })
+      const filename = `Meeting ${id}_${getFormatDate(from)}_${getFormatDate(to)}`
+
+      const link = await ReportsService.PerMeetingReport(Number.parseInt(id), from, to, filename)
+
+      return res.status(200).json({ link })
     } catch (e) {
       return res.status(400).json({ error: e })
     }
