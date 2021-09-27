@@ -10,6 +10,8 @@ const {
   xlsxBorder, reportPath, Generator, arrayMultiply,
 } = require('../utils')
 
+const { NotFoundError } = require('../errors')
+
 const { PASSWORD } = process.env
 
 class ReportsService {
@@ -19,6 +21,10 @@ class ReportsService {
     if (report) return reportPath(report.filename)
 
     const data = await ReportQueries.PerMemberData(username, from, to)
+
+    if (data.length === 0) {
+      throw new NotFoundError('The member does not exist')
+    }
 
     const headers = [
       ['User name', 20, 'center'],
@@ -80,6 +86,10 @@ class ReportsService {
     if (report) return reportPath(report.filename)
 
     const data = await ReportQueries.PerMeetingData(id, from, to)
+
+    if (data.length === 0) {
+      throw new NotFoundError('The meeting does not exist')
+    }
 
     const headers = {
       head: [

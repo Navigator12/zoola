@@ -16,6 +16,10 @@ class ReportsController {
 
       return res.status(200).json({ link })
     } catch (e) {
+      if (e.statusCode === 404) {
+        return res.status(e.statusCode).json({ error: e.message })
+      }
+
       return res.status(400).json({ error: e.message })
     }
   }
@@ -33,6 +37,10 @@ class ReportsController {
 
       return res.status(200).json({ link })
     } catch (e) {
+      if (e.statusCode === 404) {
+        return res.status(e.statusCode).json({ error: e.message })
+      }
+
       return res.status(400).json({ error: e.message })
     }
   }
