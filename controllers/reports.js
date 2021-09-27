@@ -16,7 +16,7 @@ class ReportsController {
 
       return res.status(200).json({ link })
     } catch (e) {
-      return res.status(400).json({ error: e })
+      return res.status(400).json({ error: e.message })
     }
   }
 
@@ -33,7 +33,7 @@ class ReportsController {
 
       return res.status(200).json({ link })
     } catch (e) {
-      return res.status(400).json({ error: e })
+      return res.status(400).json({ error: e.message })
     }
   }
 }

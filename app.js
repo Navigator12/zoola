@@ -2,13 +2,9 @@ const express = require('express')
 const mongoose = require('mongoose')
 require('dotenv').config()
 
-const startJobs = require('./schedulers/shedule')
-
-const { PORT, MONGO } = process.env
-
-const startDB = async () => {
+const startDB = async (mongoURI) => {
   try {
-    await mongoose.connect(MONGO, {
+    await mongoose.connect(mongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
@@ -28,8 +24,10 @@ app.use('/reports', express.static(`${__dirname}/reports`))
 
 app.use('/api/reports', require('./routes/reports'))
 
-startDB().then()
+const App = (mongoURI) => {
+  startDB(mongoURI).then()
 
-app.listen(PORT, () => console.log(`App has been started on port ${PORT}`))
+  return app
+}
 
-startJobs().then()
+module.exports = App

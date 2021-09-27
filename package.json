@@ -2,14 +2,14 @@
   "name": "zoola",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js",
-    "prod": "node app.js",
+    "dev": "nodemon index.js",
+    "prod": "node index.js",
     "lint": "eslint .",
     "linti": "eslint --init",
     "lintf": "eslint . --fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watch --detectOpenHandles"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +25,8 @@
   "devDependencies": {
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.24.2"
+    "eslint-plugin-import": "^2.24.2",
+    "jest": "^27.2.2",
+    "supertest": "^6.1.6"
   }
 }
